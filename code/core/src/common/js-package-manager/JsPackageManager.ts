@@ -605,7 +605,7 @@ export abstract class JsPackageManager {
     ignoreError?: boolean;
   }): string {
     try {
-      const commandResult = execaCommandSync([command, ...args].join(' '), {
+      const commandResult = execaCommandSync([command, ...args].map(c => c.indexOf(" ") >= 0 ? `"${c}"` : c).join(' '), {
         cwd: cwd ?? this.cwd,
         stdio: stdio ?? 'pipe',
         shell: true,
